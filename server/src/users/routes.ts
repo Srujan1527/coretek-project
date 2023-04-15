@@ -1,8 +1,10 @@
 import express, { Request, Response } from "express";
-import { signUp, login } from "./controller";
+import { verifyToken } from "../authentication/controller";
+import { getMe, getAllUsers, getUserById } from "./controller";
 
 const userRouter = express.Router();
 
-userRouter.post("/signup", signUp);
-userRouter.post("/login", login);
+userRouter.get("/me", verifyToken, getMe);
+userRouter.route("/").get(getAllUsers);
+userRouter.route("/:id").get(getUserById);
 export default userRouter;

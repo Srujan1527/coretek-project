@@ -1,39 +1,48 @@
-import { createUser, getUserByEmail, createToken } from "./service";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-export const signUp = async (req: any, res: any) => {
-  try {
-    const { name, email, password } = req.body;
-    const userDetails = { name, email, password };
-    const abc = await createUser(userDetails);
+import { AppError } from "../utils/appError";
+import { getUser, getAllUsersFromDB, getSingleUserFromDB } from "./service";
 
-    res.status(200).json({
-      message: abc,
-    });
-  } catch (err) {
-    res.status(404).json({
-      error: err,
-    });
-  }
-};
-
-export const login = async (req: any, res: any) => {
+export const getMe = async (req: any, res: any, next: any) => {
+  req.params.id = req.user.user_id;
   try {
-    const { email, password } = req.body;
-    const user = await getUserByEmail(email);
-    if (!user) return res.status(400).json({ msg: "User Does not Exists" });
-    const isMatch = await bcrypt.compare(password, user.user_password);
-    if (!isMatch) return res.status(400).json({ msg: "Invalid Credentials" });
-    const token = createToken(user);
+    const { id } = req.params;
+    const user = await getUser(id);
+    if (!user) {
+      return next(new AppError("No user found", 404));
+    }
+
     res.status(200).json({
       data: user,
-      token: token,
     });
   } catch (err) {
-    res.status(404).json({
-      message: `Error Occurred ${err}`,
+    res.status(400).json({
+      message: `Unable to get User ${err}`,
     });
   }
 };
 
-// tommorrow  write error handling for login
+export const getAllUsers = async (req: any, res: any) => {
+  try {
+    const users = await getAllUsersFromDB();
+
+    res.status(200).json({
+      data: users,
+    });
+  } catch (err) {
+    res.status(404).json({
+      message: `Unable to fetch users ${err}`,
+    });
+  }
+};
+export const getUserById = async (req: any, res: any) => {
+  const { id } = req.params;
+  try {
+    const singleUser = await getSingleUserFromDB(id);
+    res.status(200).json({
+      data: singleUser,
+    });
+  } catch (err) {
+    res.status(404).json({
+      message: `Unable to fetch user based on Id ${err}`,
+    });
+  }
+};
