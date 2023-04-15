@@ -58,7 +58,7 @@ export const verifyToken = async (req: any, res: any, next: any) => {
       new AppError("You are not logged in! Please log in to get access", 401)
     );
   }
-  const decoded = await jwt.verify(token, process.env.JWT_SECRET!);
+  const decoded =  jwt.verify(token, process.env.JWT_SECRET!);
  
   const currentUser = await getCurrentUser(decoded);
   if (!currentUser) {

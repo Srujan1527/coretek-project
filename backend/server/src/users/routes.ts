@@ -5,6 +5,8 @@ import { getMe, getAllUsers, getUserById } from "./controller";
 const userRouter = express.Router();
 
 userRouter.get("/me", verifyToken, getMe);
-userRouter.route("/").get(getAllUsers);
-userRouter.route("/:id").get(getUserById);
+// userRouter.route("/").get(getAllUsers);
+userRouter.get("/", verifyToken, getAllUsers);
+// userRouter.route("/:id").get(getUserById);
+userRouter.get("/:id", verifyToken, getUserById);
 export default userRouter;

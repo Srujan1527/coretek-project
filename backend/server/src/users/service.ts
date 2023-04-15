@@ -1,4 +1,4 @@
-import { error } from "console";
+
 import { db } from "../index";
 
 export const getUser = async (id: any): Promise<any> => {

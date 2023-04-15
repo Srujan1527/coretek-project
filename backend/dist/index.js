@@ -26,17 +26,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.app = void 0;
+exports.db = exports.app = void 0;
 const express_1 = __importDefault(require("express"));
 const sqlite3 = __importStar(require("sqlite3"));
 const path = __importStar(require("path"));
-const userRouter = require("../src/users/controller.ts");
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config({ path: "../config.env" });
+const routes_1 = __importDefault(require("./users/routes"));
+const routes_2 = __importDefault(require("./comments/routes"));
+const routes_3 = __importDefault(require("./posts/routes"));
+const routes_4 = __importDefault(require("./authentication/routes"));
 const sqlite3Verbose = sqlite3.verbose();
 exports.app = (0, express_1.default)();
 exports.app.use(express_1.default.json());
 const dbPath = path.join(__dirname, "myDatabase.db");
-const db = new sqlite3Verbose.Database("myDatabase.db");
-exports.app.use("/api/v1/users", userRouter);
+exports.db = new sqlite3Verbose.Database("myDatabase.db");
+exports.app.use("/api/v1/auth", routes_4.default);
+exports.app.use("/api/v1/users", routes_1.default);
+exports.app.use("/api/v1/comments", routes_2.default);
+exports.app.use("/api/v1/posts", routes_3.default);
 // app.get("/books", (req, res) => {
 //   db.run(
 //     "CREATE TABLE IF NOT EXISTS profileDetails (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT)",
@@ -45,13 +53,10 @@ exports.app.use("/api/v1/users", userRouter);
 //         return console.error(err.message);
 //       }
 //       console.log("Books table created successfully");
-//       res.send("Books table created successfully");
+//       res.send("Books table created successfully")
 //     }
 //   );
 // });
-const add = (a, b) => {
-    return a + b;
-};
 // app.post("/books", (req:any, res) => {
 //   const { name, email } = req.body;
 //   const insertQuery = `INSERT INTO profileDetails (name, email) VALUES ('${name}', '${email}')`;
@@ -63,6 +68,6 @@ const add = (a, b) => {
 //     res.send(`Row inserted successfully: ${name}, ${email}`);
 //   });
 // });
-exports.app.listen(3000, () => {
-    console.log("Server is running at port 3000");
+exports.app.listen(process.env.PORT, () => {
+    console.log(`Server is running at port: ${process.env.PORT} `);
 });
