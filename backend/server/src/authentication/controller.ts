@@ -29,9 +29,10 @@ export const login = async (req: any, res: any) => {
   try {
     const { email, password } = req.body;
     const user = await getUserByEmail(email);
-    if (!user) return res.status(400).json({ msg: "User Does not Exists" });
+    if (!user) return res.status(400).json({ message: "User Does not Exists" });
     const isMatch = await bcrypt.compare(password, user.user_password);
-    if (!isMatch) return res.status(400).json({ msg: "Invalid Credentials" });
+    if (!isMatch)
+      return res.status(400).json({ message: "Invalid Credentials" });
     const token = createToken(user);
     res.status(200).json({
       data: user,
@@ -58,8 +59,8 @@ export const verifyToken = async (req: any, res: any, next: any) => {
       new AppError("You are not logged in! Please log in to get access", 401)
     );
   }
-  const decoded =  jwt.verify(token, process.env.JWT_SECRET!);
- 
+  const decoded = jwt.verify(token, process.env.JWT_SECRET!);
+
   const currentUser = await getCurrentUser(decoded);
   if (!currentUser) {
     return next(

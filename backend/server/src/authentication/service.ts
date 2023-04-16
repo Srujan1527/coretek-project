@@ -1,4 +1,3 @@
-
 import bcrypt from "bcrypt";
 import { resolve } from "path";
 import { db } from "../index";
@@ -15,7 +14,7 @@ export const createUser = async (user: any): Promise<string> => {
         if (err) {
           reject(err);
         } else {
-          resolve("Object Created");
+          resolve("User Successfully Created");
         }
       });
     });
