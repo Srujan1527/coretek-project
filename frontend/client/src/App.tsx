@@ -11,13 +11,15 @@ import { useSelector } from "react-redux";
 
 import state from "./state/state";
 import Profile from "./components/Profile/Profile";
+import CreatePost from "./components/CreatePost/CreatePost";
+
 function App() {
   const isAuth = Boolean(useSelector((state: any) => state.token));
   return (
-    <div className="h-full box-border">
+    <div className="h-screen">
       <BrowserRouter>
         <Routes>
-        <Route
+          <Route
             path="/profile"
             element={isAuth ? <Profile /> : <Navigate to="/login" />}
           />
@@ -30,6 +32,10 @@ function App() {
           <Route
             path="/posts"
             element={isAuth ? <Post /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/create-post"
+            element={isAuth ? <CreatePost /> : <Navigate to="/login" />}
           />
         </Routes>
       </BrowserRouter>
