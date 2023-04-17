@@ -24,11 +24,12 @@ export const createPost = async (req: any, res: any) => {
   const { post } = req.body;
   try {
     const { id } = req.params;
+    console.log("post:", post);
+
     const createdPost = await createPostByQuery(post, id);
-    console.log(id);
+    console.log(createdPost);
     res.status(200).json({
       message: "Successfully created a post ",
-      data: createdPost,
     });
   } catch (err) {
     res.status(404).json({

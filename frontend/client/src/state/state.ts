@@ -6,6 +6,7 @@ const initialState = {
   posts: [],
   errorMsg: null,
   isError: false,
+  successMsg: null,
 };
 
 export const authSlice = createSlice({
@@ -19,9 +20,15 @@ export const authSlice = createSlice({
     setLogOut: (state) => {
       state.user = null;
       state.token = null;
+      state.errorMsg = null;
+      state.isError = false;
+      state.posts = [];
     },
     setError: (state, action) => {
       state.errorMsg = action.payload.errorMsg;
+    },
+    setSuccessMsg: (state, action) => {
+      state.successMsg = action.payload.successMsg;
     },
     setIsError: (state) => {
       state.isError = true;
@@ -42,5 +49,6 @@ export const {
   setIsError,
   setNotIsError,
   setPosts,
+  setSuccessMsg,
 } = authSlice.actions;
 export default authSlice.reducer;

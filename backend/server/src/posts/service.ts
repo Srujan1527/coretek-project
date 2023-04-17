@@ -26,11 +26,11 @@ export const createPostByQuery = async (
     const query = `INSERT INTO posts (post,user_id) VALUES (?,?)`;
     const params = [post, user_id];
     return new Promise((resolve, reject) => {
-      db?.run(query, params, (err: any, data: any) => {
+      db?.run(query, params, (err: any) => {
         if (err) {
           reject(err);
         } else {
-          resolve(data);
+          resolve("Your Post has Successfully created");
         }
       });
     });

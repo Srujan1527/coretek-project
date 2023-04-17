@@ -31,6 +31,11 @@ const Login = () => {
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     setFormFields({ ...formFields, [name]: value });
+    dispatch(
+      setError({
+        errorMsg: null,
+      })
+    );
   };
 
   const loginInUser = async (e: any) => {
@@ -76,8 +81,13 @@ const Login = () => {
         onSubmit={loginInUser}
       >
         <div className="flex flex-col ">
-          <h1 className="self-center mb-4 text-xl font-bold font-poppins">Login</h1>
-          <label htmlFor="email " className="font-inter text-sm "> Email</label>
+          <h1 className="self-center mb-4 text-xl font-bold font-poppins">
+            Login
+          </h1>
+          <label htmlFor="email " className="font-inter text-sm ">
+            {" "}
+            Email
+          </label>
           <input
             type="email"
             id="email"
@@ -90,7 +100,10 @@ const Login = () => {
           />
         </div>
         <div className="flex flex-col ">
-          <label htmlFor="password" className="font-inter text-sm "> Password</label>
+          <label htmlFor="password" className="font-inter text-sm ">
+            {" "}
+            Password
+          </label>
           <input
             type="password"
             id="password"
