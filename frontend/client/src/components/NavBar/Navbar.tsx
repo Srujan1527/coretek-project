@@ -24,13 +24,19 @@ const Navbar = () => {
         <div className="flex">
           <ul className="flex mr-10 ">
             <Link to="/posts">
-              <li className="p-2 font-rubik hover:text-red-500">Posts</li>
+              <li className="p-2 font-rubik hover:text-red-500  transition-all duration-300 hover:underline ">
+                Posts
+              </li>
             </Link>
             <Link to="/create-post">
-              <li className="p-2 font-rubik hover:text-red-500">Create Post</li>
+              <li className="p-2 font-rubik hover:text-red-500 transition-all duration-300 hover:underline ">
+                Create Post
+              </li>
             </Link>
             <Link to="/profile">
-              <li className="p-2 font-rubik hover:text-red-500">Profile</li>
+              <li className="p-2 font-rubik hover:text-red-500 transition-all duration-300 hover:underline ">
+                Profile
+              </li>
             </Link>
           </ul>
           <button

@@ -9,6 +9,7 @@ import userRouter from "./users/routes";
 import commentsRouter from "./comments/routes";
 import postsRouter from "./posts/routes";
 import authRouter from "./authentication/routes";
+import bodyParser from "body-parser";
 export const app = express();
 
 // app.use(function (req, res, next) {
@@ -25,6 +26,7 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+app.use(bodyParser.json());
 app.use(express.json());
 
 const sqlite3Verbose = sqlite3.verbose();
