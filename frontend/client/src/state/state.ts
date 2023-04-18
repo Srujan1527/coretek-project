@@ -7,6 +7,8 @@ const initialState = {
   errorMsg: null,
   isError: false,
   successMsg: null,
+  // allComments: [],
+  // postComments:[]
 };
 
 export const authSlice = createSlice({
@@ -39,6 +41,18 @@ export const authSlice = createSlice({
     setPosts: (state, action) => {
       state.posts = action.payload.posts;
     },
+    // setAllComments: (state, action) => {
+    //   state.allComments=action.payload.comments
+
+    // },
+    // setPostComments:(state,action)=>{
+    //   const { comments, postId } = action.payload;
+    //   const filteredComments = comments.filter(
+    //     (comment: any) => comment.post_id === postId
+    //   );
+    //   state.postComments = filteredComments;
+
+    // }
   },
 });
 
@@ -50,5 +64,7 @@ export const {
   setNotIsError,
   setPosts,
   setSuccessMsg,
+  // setAllComments,
+  // setPostComments,
 } = authSlice.actions;
 export default authSlice.reducer;
